@@ -33,9 +33,6 @@ jobs:
         id: mypy
         run: mypy --html-report ./reports .
         #        mypy --install-types --non-interactive --html-report ./reports .
-        with:
-          name: linter-report
-          path: reports/index.html
       - name: Notify Success In Telegram Channel
         if: ${{ steps.wemake.outcome == 'success' }} and ${{ steps.mypy.outcome == 'success' }}
         uses: appleboy/telegram-action@master
