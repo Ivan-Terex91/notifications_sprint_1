@@ -40,7 +40,7 @@ jobs:
           to: ${{ secrets.chat }}
           token: ${{ secrets.token }}
           args: Repo ${{ github.repository }} commit ${{ github.sha }} triggered successfully.
-      - name: Notify Success In Telegram Channel
+      - name: Notify Failure In Telegram Channel
         if: failure()
         uses: appleboy/telegram-action@master
         with:
