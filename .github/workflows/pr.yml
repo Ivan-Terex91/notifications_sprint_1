@@ -39,11 +39,11 @@ jobs:
         with:
           to: ${{ secrets.chat }}
           token: ${{ secrets.token }}
-          args: Repo ${{ github.repository }} commit ${{ github.sha }} triggered successfully.
+          args: Repo ${{ github.repository }} commit ${{ github.sha }} on Python version ${{ matrix.python-version }} triggered successfully.
       - name: Notify Failure In Telegram Channel
         if: failure()
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.chat }}
           token: ${{ secrets.token }}
-          args: Repo ${{ github.repository }} commit ${{ github.sha }} triggered with error, wemake ${{ steps.wemake.outcome }}, mypy ${{ steps.mypy.outcome }}.
+          args: Repo ${{ github.repository }} commit ${{ github.sha }} on Python version ${{ matrix.python-version }} triggered with error, wemake ${{ steps.wemake.outcome }}, mypy ${{ steps.mypy.outcome }}.
