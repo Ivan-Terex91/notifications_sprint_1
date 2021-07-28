@@ -27,3 +27,6 @@ dmypy.json
 
 # Pycharm files
 .idea
+
+# CI
+output/test/*

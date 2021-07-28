@@ -31,8 +31,13 @@ jobs:
         uses: wemake-services/wemake-python-styleguide@0.15.3
       - name: Mypy Check
         id: mypy
-        run: mypy --html-report ./reports .
-        #        mypy --install-types --non-interactive --html-report ./reports .
+        run: mypy --html-report ./output/test .
+        #        mypy --install-types --non-interactive --html-report ./output .
+      - name: Archive linter results
+        uses: actions/upload-artifact@v2
+        with:
+          name: linter-report
+          path: output/test/linter-report.html
       - name: Notify Success In Telegram Channel
         if: ${{ steps.wemake.outcome == 'success' }} and ${{ steps.mypy.outcome == 'success' }}
         uses: appleboy/telegram-action@master
