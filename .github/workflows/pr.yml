@@ -28,16 +28,14 @@ jobs:
           python -m pip install -r requirements/ci.txt
       - name: Wemake Python Stylguide
         id: wemake
-        continue-on-error: true
         uses: wemake-services/wemake-python-styleguide@0.15.3
       - name: Mypy Check
         id: mypy
-        continue-on-error: true
+        run: mypy --html-report ./reports .
+        #        mypy --install-types --non-interactive --html-report ./reports .
         with:
           name: linter-report
           path: reports/index.html
-        run: mypy --html-report ./reports .
-      #        mypy --install-types --non-interactive --html-report ./reports .
       - name: Notify Success In Telegram Channel
         if: ${{ steps.wemake.outcome == 'success' }} and ${{ steps.mypy.outcome == 'success' }}
         uses: appleboy/telegram-action@master
