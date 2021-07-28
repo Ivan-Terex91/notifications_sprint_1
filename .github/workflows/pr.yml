@@ -14,8 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        #        python-version: [3.8, 3.9]
-        python-version: [ 3.9 ]
+        python-version: [ 3.8, 3.9 ]
 
     steps:
       - uses: actions/checkout@v2
@@ -37,20 +36,19 @@ jobs:
         with:
           name: linter-report
           path: reports/index.html
-        run: |
-          mypy --html-report ./reports .
-      #        mypy --install-types --non-interactive --html-report .
+        run: mypy --html-report ./reports .
+      #        mypy --install-types --non-interactive --html-report ./reports .
       - name: Notify Success In Telegram Channel
-        if: (${{ success() }}
+        if: ${{ steps.wemake.outcome == 'success' }} and ${{ steps.mypy.outcome == 'success' }}
         uses: appleboy/telegram-action@master
         with:
-          to: -1001528299470
-          token: 1813470146:AAH0fVVjhyVZq5sQB9OqmBW5yDt6W2ADsCY
+          to: ${{ secrets.chat }}
+          token: ${{ secrets.token }}
           args: Repo ${{ repo }} commit ${{ commit.sha }} triggered successfully.
       - name: Notify Success In Telegram Channel
-        if: ${{ failure() }}
+        if: failure()
         uses: appleboy/telegram-action@master
         with:
-          to: -1001528299470
-          token: 1813470146:AAH0fVVjhyVZq5sQB9OqmBW5yDt6W2ADsCY
+          to: ${{ secrets.chat }}
+          token: ${{ secrets.token }}
           args: Repo ${{ GITHUB_REPOSITORY }} commit ${{ GITHUB_SHA }} triggered with error, wemake ${{ steps.wemake.outcome }}, mypy ${{ steps.mypy.outcome }}.
