@@ -1,0 +1,33 @@
+@startuml
+skinparam componentStyle uml2
+actor Client #line:black
+actor Admin #line:orange
+component "Events API" as API #line:blue
+component "Administration\nService" as AdminService #line:orange
+component "Auth\nService" as Auth #line:green
+component "RabbitMQ" #line:grey
+component Scheduler
+component Consumers #line:black
+component "Any site events" as SiteEvents #line:purple
+component Email #line:red
+component "Mobile(sms)" as Mobile #line:red
+component "Another notification\nreceiver" as AnotherReceiver #line:red 
+database "Auth\nDB" as AuthDB
+database "Rules\nDB" as RulesDB
+database "Notifications\nDB" as NotificationsDB
+
+Client -[#green]> Auth: "Регистрация\nпользователя"
+Auth -[#green]-> AuthDB: "Сохранение клиента в базу"
+Auth -[#green]> API: "Событие о регистрации\nпользователя"
+AdminService <-[#orange] Admin: "Формирование\nперсонализированных писем"
+SiteEvents -[#purple]-> API: "Событие любой части сайта.\nНапример лайк комментария" 
+API <-[#orange] AdminService: "Событие о\nперсональной рассылке" 
+API -[#blue]-> RabbitMQ: "Отправка события\nв соответствующую очередь"
+Scheduler -> RulesDB: "Сбор правил\nотправки уведомлений"
+RabbitMQ <- Scheduler: "Отправка событий\nв соответствующую очередь"
+Consumers -[#black]> RabbitMQ: "Ожидание событий"
+NotificationsDB <-[#black] Consumers: "Сохранение уведомлений"
+Consumers -[#black]-> Email: "Посылка уведомления"
+Consumers -[#black]-> Mobile: "Посылка уведомления"
+Consumers -[#black]-> AnotherReceiver: "Посылка уведомления"
+API <-[#black]- Consumers: "Сбор данных о событиях"
