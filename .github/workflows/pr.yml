@@ -35,7 +35,7 @@ jobs:
         id: mypy
         run: mypy --install-types --non-interactive --html-report ./output/test .
       - name: Archive linter results
-        continue-on-error: true
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: linter-report
