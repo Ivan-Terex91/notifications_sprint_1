@@ -33,10 +33,9 @@ jobs:
         uses: wemake-services/wemake-python-styleguide@0.15.3
       - name: Mypy Check
         id: mypy
-        continue-on-error: true
         run: mypy --install-types --non-interactive --html-report ./output/test .
       - name: Archive linter results
-        if: ${{ steps.mypy.outcome == 'success' }} or ${{ steps.mypy.outcome == 'failure' }}
+        continue-on-error: true
         uses: actions/upload-artifact@v2
         with:
           name: linter-report
