@@ -1,6 +1,29 @@
 version: '3.5'
 
 services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - 27019:27017
+    expose:
+      - "27017"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+  ugc:
+    build:
+      context: .
+      dockerfile: Dockerfile-ugc
+    volumes:
+      - ./ugc:/ugc
+    env_file:
+      - ./.env
+    ports:
+      - 7777:7777
+    depends_on:
+      - mongo
+
   scheduler:
     build:
       context: .
@@ -10,9 +33,9 @@ services:
     ports:
       - 4000:4000
     depends_on:
-      - postgres
+      - scheduler-postgres
 
-  postgres:
+  scheduler-postgres:
     image: postgres:13-alpine
     env_file:
       ./.env
