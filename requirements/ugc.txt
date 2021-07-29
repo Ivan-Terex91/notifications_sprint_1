@@ -1,0 +1,8 @@
+fastapi
+orjson
+uvicorn
+gunicorn
+httpx
+motor
+sentry-sdk
+python-logstash
