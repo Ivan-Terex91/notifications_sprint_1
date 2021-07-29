@@ -42,7 +42,7 @@ jobs:
           name: linter-report
           path: output/test/index.html
       - name: Notify Success In Telegram Channel
-        if: ${{ steps.wemake.outcome == 'success' }} and ${{ steps.mypy.outcome == 'success' }}
+        if: ${{ steps.wemake.result == 'success' }} and ${{ steps.mypy.result == 'success' }}
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.chat }}
