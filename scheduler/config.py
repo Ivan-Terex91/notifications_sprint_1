@@ -3,7 +3,7 @@ from os import getenv
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from jobs import jobs_list
 
-scheduler_thread_pool_str = getenv("SCHEDULER_THREAD_POOL", 10)
+scheduler_thread_pool_str = getenv("SCHEDULER_THREAD_POOL")
 if scheduler_thread_pool_str:
     scheduler_thread_pool = int(scheduler_thread_pool_str)
 postgres_dsn = getenv("SCHEDULER_POSTGRES_DSN")
