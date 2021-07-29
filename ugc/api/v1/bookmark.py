@@ -10,13 +10,13 @@ router = APIRouter()
 
 @router.post(path="/add_movie_bookmark/")
 async def add_movie_bookmark(
-    movie_bookmark: MovieBookmark,
-    bookmark_service: BookmarkService = Depends(get_bookmark_service),
-    auth_user=Depends(auth_current_user),
+        movie_bookmark: MovieBookmark,
+        bookmark_service: BookmarkService = Depends(get_bookmark_service),
+        auth_user=Depends(auth_current_user),
 ):
     """Добавить фильм в закладки"""
     if await bookmark_service.add_bookmark(
-        movie_id=movie_bookmark.movie_id, user_id=auth_user
+            movie_id=movie_bookmark.movie_id, user_id=auth_user
     ):
         return ORJSONResponse(status_code=status.HTTP_201_CREATED)
     raise HTTPException(
@@ -27,13 +27,13 @@ async def add_movie_bookmark(
 
 @router.delete(path="/delete_movie_bookmark/")
 async def delete_movie_bookmark(
-    movie_bookmark: MovieBookmark,
-    bookmark_service: BookmarkService = Depends(get_bookmark_service),
-    auth_user=Depends(auth_current_user),
+        movie_bookmark: MovieBookmark,
+        bookmark_service: BookmarkService = Depends(get_bookmark_service),
+        auth_user=Depends(auth_current_user),
 ):
     """Удалить фильм из закладкок"""
     if await bookmark_service.delete_bookmark(
-        movie_id=movie_bookmark.movie_id, user_id=auth_user
+            movie_id=movie_bookmark.movie_id, user_id=auth_user
     ):
         return ORJSONResponse(status_code=status.HTTP_204_NO_CONTENT)
     raise HTTPException(
@@ -44,8 +44,17 @@ async def delete_movie_bookmark(
 
 @router.get(path="/list_movie_bookmark/")
 async def list_movie_bookmark(
-    bookmark_service: BookmarkService = Depends(get_bookmark_service),
-    auth_user=Depends(auth_current_user),
+        bookmark_service: BookmarkService = Depends(get_bookmark_service),
+        auth_user=Depends(auth_current_user),
 ):
     """Список закладок фильмов"""
     return await bookmark_service.get_list_bookmark(user_id=auth_user)
+
+
+@router.get(path="/list_bookmarks_per_user/")
+async def list_movie_bookmark(
+        bookmark_service: BookmarkService = Depends(get_bookmark_service),
+        auth_user=Depends(auth_current_user),
+):
+    """Список фильмов по каждому пользователю"""
+    return await bookmark_service.get_list_bookmarks_per_user()
