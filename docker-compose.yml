@@ -23,6 +23,25 @@ services:
     volumes:
     - rabbitmq_data:/usr/share/rabbitmq_data
 
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile-scheduler
+    env_file:
+      - ./.env
+    ports:
+      - 4000:4000
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13-alpine
+    env_file:
+      ./.env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
 
 volumes:
   rabbitmq_data:
+  pg_data:
+  redis_data:

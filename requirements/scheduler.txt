@@ -1,0 +1,5 @@
+Flask-APScheduler==1.12.2
+SQLAlchemy==1.4.22
+sqlalchemy-stubs
+gunicorn
+psycopg2-binary
