@@ -3,7 +3,6 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 from motor.motor_asyncio import AsyncIOMotorClient
-
 from api.v1 import bookmark, rating, review
 from core import auth, config, mongo
 
