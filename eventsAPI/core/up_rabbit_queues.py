@@ -1,11 +1,12 @@
 import asyncio
 import os
+from typing import List
 
 import aio_pika
 import config
 
 
-async def declare_queues(queues: list[str]):
+async def declare_queues(queues: List[str]):
     """Объявляем очереди до старта api"""
     connection = await aio_pika.connect_robust(url=config.RABBIT_DSN)
     async with connection.channel() as channel:
