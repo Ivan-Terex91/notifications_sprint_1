@@ -1,7 +1,6 @@
 import json
 import logging
 import os
-
 import aio_pika
 import uvicorn as uvicorn
 from aio_pika import DeliveryMode, Message, RobustConnection
