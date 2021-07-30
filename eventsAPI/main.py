@@ -3,8 +3,8 @@ import logging
 import os
 
 import aio_pika
-import uvicorn as uvicorn
 from aio_pika import DeliveryMode, Message, RobustConnection
+import uvicorn as uvicorn
 from core import config, rabbit
 from core.logger import LOGGING
 from core.rabbit import get_rabbit_connection
