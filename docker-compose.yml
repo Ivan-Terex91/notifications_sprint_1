@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile-EventsAPI
+    volumes:
+      - ./eventsAPI:/eventsAPI
+    env_file:
+      - ./.env
+    ports:
+      - 10000:10000
+    depends_on:
+      - rabbit
+
+
+  rabbit:
+    image: rabbitmq:3.6-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+    - rabbitmq_data:/usr/share/rabbitmq_data
+
+
+volumes:
+  rabbitmq_data:

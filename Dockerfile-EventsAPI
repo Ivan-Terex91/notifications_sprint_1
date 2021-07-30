@@ -1,0 +1,12 @@
+FROM python:3.9-slim
+EXPOSE 10000
+WORKDIR /eventsAPI
+
+RUN apt-get update && apt-get --yes upgrade
+
+COPY ./requirements /eventsAPI/requirements
+RUN pip install -r /eventsAPI/requirements/api.txt --no-cache-dir
+
+COPY ./eventsAPI /eventsAPI
+
+CMD python core/waiter.py && python core/up_rabbit_queues.py && uvicorn main:app --host 0.0.0.0 --port 10000 --reload
