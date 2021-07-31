@@ -1,9 +1,4 @@
 import sentry_sdk
-from flask import Flask
-from pydantic import BaseSettings, PostgresDsn, RedisDsn
-from redis import Redis
-from sentry_sdk.integrations.flask import FlaskIntegration
-
 from api import api
 from api.staff.v1.auth import ns as staff_auth_ns
 from api.v1.auth import ns as auth_ns
@@ -13,6 +8,10 @@ from api.v1.oauth import ns as oauth_ns
 from api.v1.users import ns as profile_ns
 from core.db import init_session
 from core.oauth import oauth
+from flask import Flask
+from pydantic import BaseSettings, PostgresDsn, RedisDsn
+from redis import Redis
+from sentry_sdk.integrations.flask import FlaskIntegration
 from services import Services
 
 
