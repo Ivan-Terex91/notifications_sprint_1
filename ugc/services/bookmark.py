@@ -1,10 +1,9 @@
-from fastapi import Depends
-from motor.motor_asyncio import AsyncIOMotorClient
-from pydantic import UUID4
-
 from core import config
 from core.mongo import get_mongo_client
+from fastapi import Depends
 from models.bookmark import MovieBookmark
+from motor.motor_asyncio import AsyncIOMotorClient
+from pydantic import UUID4
 
 
 class BookmarkService:
@@ -44,6 +43,6 @@ class BookmarkService:
 
 
 def get_bookmark_service(
-        mongo_client: AsyncIOMotorClient = Depends(get_mongo_client),
+    mongo_client: AsyncIOMotorClient = Depends(get_mongo_client),
 ) -> BookmarkService:
     return BookmarkService(mongo_client=mongo_client)

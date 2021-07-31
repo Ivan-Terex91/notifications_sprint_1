@@ -2,11 +2,10 @@ import datetime
 
 from api.v1.models.history import History
 from api.v1.models.users import ChangePassword as ImportedChangePassword
-from api.v1.models.users import UserModel
+from api.v1.models.users import UserId, UserModel
 from core.api import Resource, login_required
 from flask import request
 from flask_restx import Namespace
-from api.v1.models.users import UserId
 
 authorizations = {
     "api_key": {

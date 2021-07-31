@@ -1,7 +1,6 @@
+from config import Config
 from flask import Flask
 from flask_apscheduler import APScheduler
-
-from config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config())
