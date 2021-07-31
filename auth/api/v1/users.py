@@ -54,8 +54,7 @@ class UserProfile(Resource):
         updated_user = self.services.user.put(user_data.user_id, **self.api.payload)
         if "birthdate" in self.api.payload:
             if (
-                datetime.date.today().year
-                - datetime.datetime.strptime(
+                datetime.date.today().year - datetime.datetime.strptime(
                     self.api.payload["birthdate"], "%Y-%m-%d"
                 ).year
             ) >= 18:

@@ -52,7 +52,7 @@ async def list_movie_bookmark(
 
 
 @router.get(path="/list_bookmarks_per_user/")
-async def list_movie_bookmark(
+async def list_movie_bookmarks_per_user(
     bookmark_service: BookmarkService = Depends(get_bookmark_service),
 ):
     """Список фильмов по каждому пользователю"""
