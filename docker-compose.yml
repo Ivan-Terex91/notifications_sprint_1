@@ -1,6 +1,33 @@
 version: '3.5'
 
 services:
+  auth:
+    build:
+      context: .
+      dockerfile: Dockerfile-auth
+    volumes:
+      - ./auth:/auth
+    env_file:
+      - ./.env
+    ports:
+      - 8001:8001
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:13-alpine
+    env_file:
+      ./.env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  redis:
+    image: redis
+    volumes:
+      - redis_data:/data
+
   mongo:
     container_name: mongo
     image: mongo
@@ -40,8 +67,9 @@ services:
     env_file:
       ./.env
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - shceduler_pg_data:/var/lib/postgresql/data
 
 volumes:
+  shceduler_pg_data:
   pg_data:
   redis_data:

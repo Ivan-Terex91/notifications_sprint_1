@@ -3,3 +3,6 @@ SQLAlchemy==1.4.22
 sqlalchemy-stubs
 gunicorn
 psycopg2-binary
+httpx
+pydantic
+orjson
