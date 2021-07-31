@@ -35,8 +35,12 @@ class BookmarkService:
         return movie_bookmarks
 
     async def get_list_bookmarks_per_user(self):
+        bookmarks_per_user = []
         pipeline = [{"$group": {"_id": "$user_id", "movies": {"$push": "$movie_id"}}}]
-        return self.collection.aggregate(pipeline)
+        users_bookmarks = self.collection.aggregate(pipeline)
+        async for user in users_bookmarks:
+            bookmarks_per_user.append(user)
+        return bookmarks_per_user
 
 
 def get_bookmark_service(

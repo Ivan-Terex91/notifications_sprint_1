@@ -12,9 +12,15 @@ jobs_list = [
         "id": "job2",
         "func": "job_definitions:saved_films",
         "replace_existing": True,
-        "args": (1, 2),
         "trigger": "cron",
         "day": "1st sat",
         "hour": 18,
+    },
+    {
+        "id": "test_job",
+        "func": "job_definitions:saved_films",
+        "replace_existing": True,
+        "trigger": "interval",
+        "seconds": 2,
     },
 ]
