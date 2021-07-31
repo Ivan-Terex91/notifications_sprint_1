@@ -22,7 +22,7 @@ class Settings(BaseSettings):
 
     oauth_facebook_client_id: str
     oauth_facebook_client_secret: str
-    SENTRY_DSN: str = None
+    SENTRY_DSN: str
 
     class Config:
         env_file = ".env"

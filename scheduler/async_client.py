@@ -5,7 +5,7 @@ import orjson
 
 ugc_url = getenv("UGC_URL")
 bookmark_api_prefix = "/api/v1/bookmark/"
-ugc_timeout = float(getenv("UGC_TIMEOUT"))
+ugc_timeout = float(getenv("UGC_TIMEOUT", 60.0))
 
 auth_url = getenv("AUTH_URL")
 profile_api_prefix = "/api/v1/profile/"
