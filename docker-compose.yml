@@ -21,7 +21,7 @@ services:
       - 5672:5672
       - 15672:15672
     volumes:
-    - rabbitmq_data:/usr/share/rabbitmq_data
+      - rabbitmq_data:/usr/share/rabbitmq_data
 
   auth:
     build:
@@ -86,13 +86,108 @@ services:
 
   scheduler-postgres:
     image: postgres:13-alpine
-    env_file:
-      ./.env
     volumes:
       - shceduler_pg_data:/var/lib/postgresql/data
+    env_file:
+      - ./.env
+    ports:
+      - 5434:5432
+
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile-django
+    restart: always
+    volumes:
+      - ./django_admin:/usr/src/app/
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/mediafiles
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+
+  etl-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile-etl-cli
+    volumes:
+      - ./postgres_to_es:/usr/src/app/
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+      - elasticsearch
+
+  etl:
+    build:
+      context: .
+      dockerfile: Dockerfile-etl
+    volumes:
+      - ./postgres_to_es:/usr/src/app/
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+      - elasticsearch
+
+  fast_api:
+    build:
+      context: .
+      dockerfile: Dockerfile-fast-api
+    volumes:
+      - ./fast_api:/usr/src/app/
+    ports:
+      - 8002:8000
+    env_file:
+      - ./.env
+    depends_on:
+      - elasticsearch
+
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+    ports:
+      - 5436:5432
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.2
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch_volume:/usr/share/elasticsearch/data
+
+  redis-elastic:
+    image: redis:6.0-alpine
+    volumes:
+      - redis_volume:/data
+    env_file:
+      - ./.env
+    ports:
+      - 6381:6379
+    command:
+      - 'redis-server'
+      - '--databases 2'
+      - '--save 900 1'
+      - '--save 300 10'
+      - '--save 60 10000'
 
 volumes:
   shceduler_pg_data:
   rabbitmq_data:
   pg_data:
   redis_data:
+  postgres_data:
+  elasticsearch_volume:
+  redis_volume:
+  static_volume:
+  media_volume:
