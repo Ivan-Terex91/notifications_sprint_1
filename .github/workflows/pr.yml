@@ -29,6 +29,7 @@ jobs:
           python -m pip install -r requirements/scheduler.txt
           python -m pip install -r requirements/ugc.txt
           python -m pip install -r requirements/auth.txt
+          python -m pip install -r requirements/api.txt
       - name: Wemake Python Stylguide
         id: wemake
         uses: wemake-services/wemake-python-styleguide@0.15.3
