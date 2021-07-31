@@ -4,7 +4,7 @@ from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from jobs import jobs_list
 
 scheduler_thread_pool = int(getenv("SCHEDULER_THREAD_POOL"))
-postgres_dsn = getenv("POSTGRES_DSN")
+postgres_dsn = getenv("SCHEDULER_POSTGRES_DSN")
 scheduler_max_instances = getenv("SCHEDULER_MAX_INSTANCES")
 
 

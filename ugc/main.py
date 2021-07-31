@@ -1,15 +1,11 @@
-import logging
-from os import getenv
-
 import sentry_sdk
 import uvicorn
-from api.v1 import bookmark, rating, review
-from core import auth, config, mongo
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
-from logstash import LogstashHandler
 from motor.motor_asyncio import AsyncIOMotorClient
-from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
+
+from api.v1 import bookmark, rating, review
+from core import auth, config, mongo
 
 sentry_sdk.init(
     dsn=config.SENTRY_DSN,
