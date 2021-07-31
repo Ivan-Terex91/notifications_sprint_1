@@ -1,0 +1,27 @@
+from os import getenv
+
+import httpx
+import orjson
+
+ugc_url = getenv("UGC_URL")
+bookmark_api_prefix = "/api/v1/bookmark/"
+ugc_timeout = float(getenv("UGC_TIMEOUT", 60.0))
+
+auth_url = getenv("AUTH_URL")
+profile_api_prefix = "/api/v1/profile/"
+
+
+async def get_bookmarks_per_user():
+    async with httpx.AsyncClient(timeout=ugc_timeout) as client:
+        response = await client.get(
+            f"{ugc_url}{bookmark_api_prefix}list_bookmarks_per_user/",
+            timeout=httpx.Timeout(timeout=ugc_timeout),
+        )
+    return orjson.loads(response.content)
+
+
+async def get_user(id):
+    async with httpx.AsyncClient(timeout=ugc_timeout) as client:
+        url = f"{auth_url}{profile_api_prefix}"
+        response = await client.post(url, json={"id": id})
+    return orjson.loads(response.content)

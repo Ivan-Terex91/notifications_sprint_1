@@ -23,6 +23,76 @@ services:
     volumes:
     - rabbitmq_data:/usr/share/rabbitmq_data
 
+  auth:
+    build:
+      context: .
+      dockerfile: Dockerfile-auth
+    volumes:
+      - ./auth:/auth
+    env_file:
+      - ./.env
+    ports:
+      - 8001:8001
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:13-alpine
+    env_file:
+      ./.env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  redis:
+    image: redis
+    volumes:
+      - redis_data:/data
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - 27019:27017
+    expose:
+      - "27017"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+  ugc:
+    build:
+      context: .
+      dockerfile: Dockerfile-ugc
+    volumes:
+      - ./ugc:/ugc
+    env_file:
+      - ./.env
+    ports:
+      - 7777:7777
+    depends_on:
+      - mongo
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile-scheduler
+    env_file:
+      - ./.env
+    ports:
+      - 4000:4000
+    depends_on:
+      - scheduler-postgres
+
+  scheduler-postgres:
+    image: postgres:13-alpine
+    env_file:
+      ./.env
+    volumes:
+      - shceduler_pg_data:/var/lib/postgresql/data
 
 volumes:
+  shceduler_pg_data:
   rabbitmq_data:
+  pg_data:
+  redis_data:

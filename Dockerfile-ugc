@@ -1,0 +1,12 @@
+FROM python:3.9-slim
+EXPOSE 7777
+WORKDIR /ugc
+
+RUN apt-get update && apt-get --yes upgrade
+
+COPY ./requirements /ugc/requirements
+RUN pip install -r /ugc/requirements/ugc.txt --no-cache-dir
+
+COPY ./ugc /ugc
+
+CMD uvicorn main:app --host 0.0.0.0 --port 7777 --reload
