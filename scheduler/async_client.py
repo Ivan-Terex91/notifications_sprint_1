@@ -1,4 +1,5 @@
 import asyncio
+from http.client import OK
 from os import getenv
 
 import httpx
@@ -38,7 +39,7 @@ async def get_film(id):
     async with httpx.AsyncClient() as client:
         url = f"{movie_search_url}{film_api_prefix}{id}"
         response = await client.get(url)
-        if response.status_code > 200:
+        if response.status_code > OK:
             return None
     return orjson.loads(response.content)
 

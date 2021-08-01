@@ -1,4 +1,4 @@
-from .utils import BaseOrjsonModel
+from utils import BaseOrjsonModel
 
 
 class Director(BaseOrjsonModel):

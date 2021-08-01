@@ -1,4 +1,3 @@
-import os
 from os import getenv
 
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
@@ -9,7 +8,7 @@ if scheduler_thread_pool_str:
     scheduler_thread_pool = int(scheduler_thread_pool_str)
 postgres_dsn = getenv("POSTGRES_DSN")
 scheduler_max_instances = getenv("SCHEDULER_MAX_INSTANCES")
-rabbit_dsn = os.getenv("RABBIT_DSN", "amqp://guest:guest@localhost:5672/")
+rabbit_dsn = getenv("RABBIT_DSN", "amqp://guest:guest@localhost:5672/")
 
 
 class Config:
