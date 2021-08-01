@@ -7,7 +7,7 @@ from models.bookmarks_event import BookmarksEvent
 from rabbit import publish_bookmarks_event
 
 loop = asyncio.new_event_loop()
-rabbit_connection = loop.run_until_complete(
+rabbit_connection: aio_pika.RobustConnection = loop.run_until_complete(
     aio_pika.connect_robust(url=config.rabbit_dsn)
 )
 

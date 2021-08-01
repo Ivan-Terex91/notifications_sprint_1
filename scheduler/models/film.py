@@ -24,4 +24,4 @@ class Film(ShortFilm):
 class FilmForNotification(BaseOrjsonModel):
     title: str
     imdb_rating: float
-    genres: list[GenreForNotification]
+    genres: List[GenreForNotification]
