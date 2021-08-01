@@ -88,8 +88,8 @@ class UserService:
         requests.post(
             url="".join(
                 (
-                    os.getenv("EVENTS_API_BASE_URL"),
-                    os.getenv("REGISTRATION_USER_EVENT_ROUTE"),
+                    os.getenv("EVENTS_API_BASE_URL", "http://localhost:10000"),
+                    os.getenv("REGISTRATION_USER_EVENT_ROUTE", "/registration_user_event/"),
                 )
             ),
             data=json.dumps(registration_event_data.dict(), default=str),
