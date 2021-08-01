@@ -1,8 +1,12 @@
+import json
+import os
 from typing import Optional
 from uuid import UUID
 
+import requests
 from core.db import User
 from core.exceptions import AuthError, EmailUsedError, NotFound
+from models.registration_event import RegistrationUserEventModel
 from passlib.hash import pbkdf2_sha256
 from sqlalchemy.orm import Session
 
@@ -25,6 +29,10 @@ class UserService:
         user.password = self.get_hash_password(user.password)
         self.session.add(user)
         self.session.flush()
+        registration_event = RegistrationUserEventModel(
+            user_id=user.id, firstname=user.first_name, email=user.email
+        )
+        self.send_registration_event(registration_event_data=registration_event)
         return user
 
     def put(self, user_id: UUID, **updated_data) -> Optional[User]:
@@ -72,3 +80,17 @@ class UserService:
     def verify_password(self, password, password_hash):
         """Верификация пароля"""
         return pbkdf2_sha256.verify(password, password_hash)
+
+    def send_registration_event(
+        self, registration_event_data: RegistrationUserEventModel
+    ):
+        """Отправка в api событий события о регистрации пользователя"""
+        requests.post(
+            url="".join(
+                (
+                    os.getenv("EVENTS_API_BASE_URL", "http://localhost:10000"),
+                    os.getenv("REGISTRATION_USER_EVENT_ROUTE", "/registration_user_event/"),
+                )
+            ),
+            data=json.dumps(registration_event_data.dict(), default=str),
+        )
