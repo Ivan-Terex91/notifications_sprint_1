@@ -19,6 +19,7 @@ async def declare_queues(queues: List[str]):
 
 
 if __name__ == "__main__":
-    queues_list = "administration_event:queue,registration_event:queue,rating_review_event:queue,scheduler_bookmarks_event:queue"
+    queues_list = "administration_event:queue,registration_event:queue,rating_review_event:queue" \
+                  + ",scheduler_bookmarks_event:queue"
     queues = os.getenv("ALL_QUEUES", queues_list).split(",")
     asyncio.run(declare_queues(queues=queues))

@@ -1,6 +1,6 @@
 from typing import List
 
-from utils import BaseOrjsonModel
+from utilities import BaseOrjsonModel
 
 
 class Person(BaseOrjsonModel):

@@ -1,6 +1,6 @@
 from film import FilmForNotification
 from user import User
-from utils import BaseOrjsonModel
+from utilities import BaseOrjsonModel
 
 
 class BookmarksEvent(BaseOrjsonModel):
