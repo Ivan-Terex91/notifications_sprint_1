@@ -3,7 +3,7 @@ import os
 from typing import Optional
 from uuid import UUID
 
-import httpx
+import requests
 from core.db import User
 from core.exceptions import AuthError, EmailUsedError, NotFound
 from models.registration_event import RegistrationUserEventModel
@@ -85,7 +85,7 @@ class UserService:
         self, registration_event_data: RegistrationUserEventModel
     ):
         """Отправка в api событий события о регистрации пользователя"""
-        httpx.post(
+        requests.post(
             url="".join(
                 (
                     os.getenv("EVENTS_API_BASE_URL"),
