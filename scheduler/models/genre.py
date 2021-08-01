@@ -1,4 +1,4 @@
-from utilities import BaseOrjsonModel
+from models.utilities import BaseOrjsonModel
 
 
 class Genre(BaseOrjsonModel):

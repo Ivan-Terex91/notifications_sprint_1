@@ -1,10 +1,10 @@
 from typing import List
 
-from actor import Actor
-from director import Director
-from genre import Genre, GenreForNotification
-from utilities import BaseOrjsonModel
-from writer import Writer
+from models.actor import Actor
+from models.director import Director
+from models.genre import Genre, GenreForNotification
+from models.utilities import BaseOrjsonModel
+from models.writer import Writer
 
 
 class ShortFilm(BaseOrjsonModel):

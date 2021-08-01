@@ -1,7 +1,7 @@
 from typing import Optional
 
 from pydantic import EmailStr
-from utilities import BaseOrjsonModel
+from models.utilities import BaseOrjsonModel
 
 
 class User(BaseOrjsonModel):

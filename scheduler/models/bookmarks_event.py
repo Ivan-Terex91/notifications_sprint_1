@@ -1,8 +1,8 @@
 from typing import List
 
-from film import FilmForNotification
-from user import User
-from utilities import BaseOrjsonModel
+from models.film import FilmForNotification
+from models.user import User
+from models.utilities import BaseOrjsonModel
 
 
 class BookmarksEvent(BaseOrjsonModel):
