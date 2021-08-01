@@ -8,6 +8,7 @@ from core.db import User
 from core.exceptions import AuthError, EmailUsedError, NotFound
 from models.registration_event import RegistrationUserEventModel
 from passlib.hash import pbkdf2_sha256
+
 from sqlalchemy.orm import Session
 
 
@@ -40,9 +41,9 @@ class UserService:
         user: User = self.session.query(User).get({"id": user_id})
         if "email" in updated_data:
             if (
-                self.session.query(User)
-                .filter(User.email == updated_data["email"])
-                .first()
+                    self.session.query(User)
+                            .filter(User.email == updated_data["email"])
+                            .first()
             ):
                 raise EmailUsedError("This email address is already in use")
 
@@ -82,7 +83,7 @@ class UserService:
         return pbkdf2_sha256.verify(password, password_hash)
 
     def send_registration_event(
-        self, registration_event_data: RegistrationUserEventModel
+            self, registration_event_data: RegistrationUserEventModel
     ):
         """Отправка в api событий события о регистрации пользователя"""
         requests.post(
