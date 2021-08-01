@@ -24,5 +24,4 @@ def saved_films():
     films = loop.run_until_complete(gather_films(item["movies"]))
 
     bookmarks_event = BookmarksEvent(user=user, films=films).json()
-    print(bookmarks_event)
     loop.run_until_complete(publish_bookmarks_event(rabbit_connection, bookmarks_event))
