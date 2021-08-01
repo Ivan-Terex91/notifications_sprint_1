@@ -59,6 +59,7 @@ services:
       - "27017"
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - mongo_data:/var/lib/mongo/data/
 
   ugc:
     build:
@@ -83,6 +84,7 @@ services:
       - 4000:4000
     depends_on:
       - scheduler-postgres
+      - rabbit
 
   scheduler-postgres:
     image: postgres:13-alpine
@@ -184,6 +186,7 @@ services:
 volumes:
   shceduler_pg_data:
   rabbitmq_data:
+  mongo_data:
   pg_data:
   redis_data:
   postgres_data:

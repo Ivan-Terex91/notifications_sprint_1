@@ -18,7 +18,7 @@ down-clear:
 	docker-compose down -v --remove-orphans
 
 
-		init: copy_env_file up create_schema_and_populate_from_sqlite django-migrate \
+init: copy_env_file up create_schema_and_populate_from_sqlite django-migrate \
 		es_create_schema es_transfer_from_postgres_pipline_start
 
 create_schema_and_populate_from_sqlite:
