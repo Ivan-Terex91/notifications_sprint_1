@@ -9,7 +9,7 @@ from models.bookmarks_event import BookmarksEvent
 
 loop = asyncio.new_event_loop()
 rabbit_connection = loop.run_until_complete(
-    aio_pika.connect_robust(url=config.rabbit_dsnm)
+    aio_pika.connect_robust(url=config.rabbit_dsn)
 )
 
 
