@@ -37,6 +37,18 @@ services:
       - postgres
       - redis
 
+  administration:
+    build:
+      context: .
+      dockerfile: Dockerfile-administration_events
+    env_file:
+      - ./.env
+#    ports:
+#      - 8000:8000
+    depends_on:
+      - postgres
+    restart: always
+
   postgres:
     image: postgres:13-alpine
     env_file:
@@ -91,8 +103,22 @@ services:
     volumes:
       - shceduler_pg_data:/var/lib/postgresql/data
 
+  nginx:
+    container_name: ymp_nginx
+    image: nginx:alpine
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - static_volume:/Administration_event_service/staticfiles
+    ports:
+      - 8000:80
+    depends_on:
+      - administration
+    restart: always
+
 volumes:
   shceduler_pg_data:
   rabbitmq_data:
   pg_data:
   redis_data:
+  static_volume:

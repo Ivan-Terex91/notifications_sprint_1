@@ -1,0 +1,15 @@
+FROM python:3.9-alpine
+
+WORKDIR /Administration_event_service
+
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
+
+
+RUN pip install --upgrade pip
+COPY ./requirements /Administration_event_service/requirements
+RUN pip install -r /Administration_event_service/requirements/administration.txt --no-cache-dir
+
+COPY ./Administration_event_service /Administration_event_service
+
+CMD python manage.py makemigrations && python manage.py migrate && gunicorn sender.wsgi:application --bind 0.0.0.0:8000
