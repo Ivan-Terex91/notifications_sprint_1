@@ -41,10 +41,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-administration_events
+    volumes:
+      - static_volume:/Administration_event_service/staticfiles
     env_file:
       - ./.env
-#    ports:
-#      - 8000:8000
     depends_on:
       - postgres
     restart: always
