@@ -12,4 +12,4 @@ RUN pip install -r ./scheduler.txt
 
 COPY ./scheduler /scheduler
 
-CMD ["gunicorn", "main:app", "-b", "0.0.0.0:4000", "--preload"]
+CMD python waiter.py && gunicorn main:app -b 0.0.0.0:4000 --reload
