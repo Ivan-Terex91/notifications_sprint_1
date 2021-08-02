@@ -1,5 +1,5 @@
 from api.v1.models.auth import (LoginResponseModel, RefreshTokenModel,
-                                RefreshTokensResponseModel,
+                                RefreshTokensResponseModel, SignupRequestModel,
                                 SignupResponseModel)
 from api.v1.models.users import LoginRequestModel
 from core.api import Resource, login_required
@@ -20,7 +20,7 @@ ns = Namespace("Auth Namespace", authorizations=authorizations, security="api_ke
 
 @ns.route("/signup/")
 class SignupView(Resource):
-    @ns.expect(LoginRequestModel, validate=True)
+    @ns.expect(SignupRequestModel, validate=True)
     @ns.response(409, description="This email address is already in use")
     @ns.response(400, description="Bad request")
     @ns.response(201, description="Successfully signup in", model=SignupResponseModel)

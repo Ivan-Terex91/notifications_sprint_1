@@ -16,7 +16,6 @@ UserModel = api.model(
 LoginRequestModel = api.model(
     "LoginRequestModel",
     {
-        "first_name": fields.String(required=True),
         "email": fields.String(required=True),
         "password": fields.String(required=True),
     },
