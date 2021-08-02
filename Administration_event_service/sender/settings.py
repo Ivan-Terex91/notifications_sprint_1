@@ -9,12 +9,12 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("ADMIN_EVENT_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get("DEBUG", default=1))
+DEBUG = int(os.environ.get("ADMIN_EVENT_DEBUG", default=1))
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("ADMIN_EVENT_DJANGO_ALLOWED_HOSTS").split(" ")
 
 # Application definition
 
@@ -65,13 +65,13 @@ WSGI_APPLICATION = "sender.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get(
-            "SQL_ENGINE", "django.db.backends.postgresql_psycopg2"
+            "ADMIN_EVENT_SQL_ENGINE", "django.db.backends.postgresql_psycopg2"
         ),
-        "NAME": os.environ.get("SQL_DATABASE", "administration_events"),
-        "USER": os.environ.get("SQL_USER", "postgres"),
-        "PASSWORD": os.environ.get("SQL_PASSWORD", "postgres"),
-        "HOST": os.environ.get("SQL_HOST", "localhost"),
-        "PORT": os.environ.get("SQL_PORT", "5432"),
+        "NAME": os.environ.get("ADMIN_EVENT_SQL_DATABASE", "administration_events"),
+        "USER": os.environ.get("ADMIN_EVENT_SQL_USER", "postgres"),
+        "PASSWORD": os.environ.get("ADMIN_EVENT_SQL_PASSWORD", "postgres"),
+        "HOST": os.environ.get("ADMIN_EVENT_SQL_HOST", "localhost"),
+        "PORT": os.environ.get("ADMIN_EVENT_SQL_PORT", "5432"),
     }
 }
 
