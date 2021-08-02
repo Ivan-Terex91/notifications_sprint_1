@@ -35,7 +35,7 @@ jobs:
         uses: wemake-services/wemake-python-styleguide@0.15.3
       - name: Mypy Check
         id: mypy
-        run: mypy --install-types --non-interactive --html-report ./output/test .
+        run: mypy --install-types --non-interactive --html-report ./output/test --exclude '(django_admin|fast_api|postgres_to_es)' .
       - name: Archive linter results
         if: always()
         uses: actions/upload-artifact@v2
