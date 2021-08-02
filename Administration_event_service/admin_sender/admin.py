@@ -32,4 +32,4 @@ class AdministrationEventModelAdmin(admin.ModelAdmin):
                 data=json.dumps(asdict(user_data), default=str),
             )
 
-    send_email.short_description = "Отправка персонализированного письма пользователю"
+    send_email.short_description = "Отправка персонализированного письма пользователю"  # type: ignore

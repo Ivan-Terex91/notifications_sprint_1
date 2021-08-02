@@ -14,7 +14,7 @@ SECRET_KEY = os.environ.get("ADMIN_EVENT_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("ADMIN_EVENT_DEBUG", default=1))
 
-ALLOWED_HOSTS = os.environ.get("ADMIN_EVENT_DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("ADMIN_EVENT_DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1 [::1]").split(" ")
 
 # Application definition
 
