@@ -1,6 +1,23 @@
 # Проектная работа 10 спринта
 
-Проектные работы в этом модуле выполняются в одиночку, без деления на команды. Задания на спринт вы найдёте внутри тем.
+# Запуск проекта
+1. Скопировать переменные окружения командой `make copy_env_file`.
+2. Запустить `docker-compose up -d --build`
+3. Собрать статику для `Administration event service` командой `docker-compose exec administration python manage.py 
+   collectstatic`
+
+
+# EventsAPI
+Swagger - `http://127.0.0.1:10000/api/openapi`
+
+# Auth
+Swagger - `http://127.0.0.1:8001/`
+
+# Administration event service
+`http://127.0.0.1:8000/admin/`
+
+Команда создания суперпользователя `docker-compose exec administration python manage.py createsuperuser` 
+
 
 # Scheduler API
 
