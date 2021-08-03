@@ -1,0 +1,12 @@
+FROM python:3.9-slim
+EXPOSE 11000
+WORKDIR /notification
+
+RUN apt-get update && apt-get --yes upgrade
+
+COPY ./requirements /notification/requirements
+RUN pip install -r /notification/requirements/notification.txt --no-cache-dir
+
+COPY ./notification /notification
+
+CMD python main.py
