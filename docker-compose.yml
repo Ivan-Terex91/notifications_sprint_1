@@ -16,12 +16,17 @@ services:
 
 
   rabbit:
-    image: rabbitmq:3.6-management-alpine
+    image: rabbitmq:3.9.1-management-alpine
     ports:
       - 5672:5672
       - 15672:15672
     volumes:
       - rabbitmq_data:/usr/share/rabbitmq_data
+    healthcheck:
+      test: [ "CMD", "rabbitmqctl", "status" ]
+      interval: 5s
+      timeout: 20s
+      retries: 10
 
   auth:
     build:
@@ -208,6 +213,31 @@ services:
       - administration
     restart: always
 
+  notification:
+    build:
+      context: .
+      dockerfile: Dockerfile-notification
+    volumes:
+      - ./notification:/notification
+    env_file:
+      - ./.env
+    ports:
+      - 11000:11000
+    restart: on-failure
+    depends_on:
+      - rabbit
+
+  notification-mongo:
+    container_name: notification-mongo
+    image: mongo
+    ports:
+      - 27021:27017
+    expose:
+      - "27017"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - notification_mongo_data:/var/lib/mongo/data/
+
 volumes:
   shceduler_pg_data:
   rabbitmq_data:
@@ -220,3 +250,4 @@ volumes:
   redis_volume:
   static_volume:
   media_volume:
+  notification_mongo_data:

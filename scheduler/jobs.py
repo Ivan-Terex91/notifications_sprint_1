@@ -21,6 +21,6 @@ jobs_list = [
         "func": "job_definitions:saved_films",
         "replace_existing": True,
         "trigger": "interval",
-        "seconds": 5,
+        "seconds": 10,
     },
 ]

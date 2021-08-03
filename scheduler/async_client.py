@@ -25,6 +25,8 @@ async def get_bookmarks_per_user():
             timeout=httpx.Timeout(timeout=ugc_timeout),
         )
         content = orjson.loads(response.content)
+        print(response.status_code)
+        print(response.content)
     return content
 
 
