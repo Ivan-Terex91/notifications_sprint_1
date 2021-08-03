@@ -208,6 +208,20 @@ services:
       - administration
     restart: always
 
+  workers:
+    build:
+      context: .
+      dockerfile: Dockerfile-workers
+    volumes:
+      - ./workers:/workers
+    env_file:
+      - ./.env
+    ports:
+      - 12345:12345
+    depends_on:
+      - mongo
+      - rabbit
+
 volumes:
   shceduler_pg_data:
   rabbitmq_data:
