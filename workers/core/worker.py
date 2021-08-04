@@ -1,13 +1,12 @@
 import asyncio
 import os
 
-from pydantic import ValidationError
-
 from core.logger import logger
 from core.mongo import MongoService
 from core.rabbit import RabbitService
 from core.sender import SendgridService
 from models import models
+from pydantic import ValidationError
 
 
 class Worker:
