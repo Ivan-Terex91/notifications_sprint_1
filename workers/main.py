@@ -2,13 +2,12 @@ import asyncio
 import os
 
 import aio_pika
-from motor.motor_asyncio import AsyncIOMotorClient
-from sendgrid import SendGridAPIClient
-
 from core.mongo import MongoService
 from core.rabbit import RabbitService
 from core.sender import SendgridService
 from core.worker import Worker
+from motor.motor_asyncio import AsyncIOMotorClient
+from sendgrid import SendGridAPIClient
 
 
 async def main():

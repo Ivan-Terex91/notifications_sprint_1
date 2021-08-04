@@ -2,9 +2,9 @@ import os
 from abc import ABC
 from typing import Any
 
+from core.logger import logger
 from python_http_client.client import Response
 from sendgrid import Mail, SendGridAPIClient
-from core.logger import logger
 
 
 class Sender(ABC):

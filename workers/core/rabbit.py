@@ -14,7 +14,7 @@ class RabbitService:
         async with self.connection.channel() as channel:
             await channel.set_qos(prefetch_count=100)
             queue = await channel.declare_queue(name=queue, durable=True)
-            async with queue.iterator() as queue_iter:
+            async with queue.iterator() as queue_iter:  # type: ignore
                 async for message in queue_iter:
                     async with message.process():
                         return json.loads(message.body)
