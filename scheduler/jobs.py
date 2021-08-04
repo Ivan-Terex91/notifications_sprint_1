@@ -16,11 +16,4 @@ jobs_list = [
         "day": "1st sat",
         "hour": 18,
     },
-    {
-        "id": "test_job",
-        "func": "job_definitions:saved_films",
-        "replace_existing": True,
-        "trigger": "interval",
-        "seconds": 5,
-    },
 ]

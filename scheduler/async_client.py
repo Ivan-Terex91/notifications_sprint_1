@@ -8,14 +8,14 @@ from models.film import FilmForNotification
 from models.user import User
 
 ugc_url = getenv("UGC_URL")
-bookmark_api_prefix = "/api/v1/bookmark/"
+bookmark_api_prefix = getenv("BOOKMARK_API_PREFIX", "/api/v1/bookmark/")
 ugc_timeout = float(getenv("UGC_TIMEOUT", 60.0))
 
 auth_url = getenv("AUTH_URL")
-profile_api_prefix = "/api/v1/profile/"
+profile_api_prefix = getenv("PROFILE_API_PREFIX", "/api/v1/profile/")
 
 movie_search_url = getenv("MOVIE_SEARCH_URL")
-film_api_prefix = "/api/v1/film/"
+film_api_prefix = getenv("FILM_API_PREFIX", "/api/v1/film/")
 
 
 async def get_bookmarks_per_user():

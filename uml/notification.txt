@@ -30,4 +30,3 @@ NotificationsDB <-[#black] Consumers: "Сохранение уведомлени
 Consumers -[#black]-> Email: "Посылка уведомления"
 Consumers -[#black]-> Mobile: "Посылка уведомления"
 Consumers -[#black]-> AnotherReceiver: "Посылка уведомления"
-API <-[#black]- Consumers: "Сбор данных о событиях"
