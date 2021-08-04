@@ -1,7 +1,7 @@
 from api.v1.models.review import ReviewModel as ReviewModelIn
 from bson import ObjectId
-from core import config
-from core.mongo import get_mongo_client
+from core import config  # type: ignore
+from core.mongo import get_mongo_client  # type: ignore
 from fastapi import Depends
 from models.review import ReviewModel
 from motor.motor_asyncio import AsyncIOMotorClient

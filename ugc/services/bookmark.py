@@ -1,5 +1,5 @@
-from core import config
-from core.mongo import get_mongo_client
+from core import config  # type: ignore
+from core.mongo import get_mongo_client  # type: ignore
 from fastapi import Depends
 from models.bookmark import MovieBookmark
 from motor.motor_asyncio import AsyncIOMotorClient
