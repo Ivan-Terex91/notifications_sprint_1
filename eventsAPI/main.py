@@ -5,9 +5,9 @@ import os
 import aio_pika
 import uvicorn as uvicorn
 from aio_pika import DeliveryMode, Message, RobustConnection
-from core import config, rabbit
-from core.logger import LOGGING
-from core.rabbit import get_rabbit_connection
+from core import config, rabbit  # type: ignore
+from core.logger import LOGGING  # type: ignore
+from core.rabbit import get_rabbit_connection  # type: ignore
 from fastapi import Depends, FastAPI
 from fastapi.responses import ORJSONResponse
 from models.administration_event import AdministrationEventModel

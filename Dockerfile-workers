@@ -1,0 +1,12 @@
+FROM python:3.9-slim
+EXPOSE 12345
+WORKDIR /workers
+
+RUN apt-get update && apt-get --yes upgrade
+
+COPY ./requirements /workers/requirements
+RUN pip install -r /workers/requirements/workers.txt --no-cache-dir
+
+COPY ./workers /workers
+
+CMD python core/waiter.py && python main.py
